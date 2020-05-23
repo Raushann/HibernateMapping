@@ -27,8 +27,6 @@ public class Company {
 		SessionFactory sessfact=con.buildSessionFactory();
 		Session sess=sessfact.openSession();
 
-
-
 		Transaction transact =sess.beginTransaction();
 
 		/*
@@ -38,19 +36,27 @@ public class Company {
 		 * 3)if multiple sessions are created for multiple fetching then the query will be fired individually.
 		 */
 		TestEngineer test=null;
-		test=(TestEngineer)sess.get(TestEngineer.class, 1);
-		System.out.println(test);
-		
+		test=sess.get(TestEngineer.class, 1);
+		System.out.println("Test  "+test);
+		System.out.println("***********************************************");
 		Collection collect=(Collection) test.getDev();
 		for (Object object : collect) {
 			System.out.println(object);
 		}
-		
-		sess.flush();
-		Session sess1  = sessfact.openSession();
-		sess1.get(DevEngineer.class, 2);
+	
 		transact.commit();
-		sess1.close();
+		sess.close();
+		
+		System.out.println("****************************************************");
+		
+		  Session newSession = sessfact.openSession(); Transaction transact1 =
+		  newSession.beginTransaction();
+		  
+		  TestEngineer test1 = newSession.get(TestEngineer.class, 2);
+		  System.out.println("Hello " + test1); transact1.commit(); newSession.close();
+		 
+		 
+		
 		sessfact.close();
 	}
 }
