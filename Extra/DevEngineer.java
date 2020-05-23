@@ -41,7 +41,7 @@ public class DevEngineer {
 		
 	}
 
-
+         //@ManyToMany(fetch = FetchType.LAZY)
 	@ManyToMany(fetch = FetchType.EAGER)
 	public List< TestEngineer> test=new ArrayList<TestEngineer>();
 	public List<TestEngineer> getTest() {
